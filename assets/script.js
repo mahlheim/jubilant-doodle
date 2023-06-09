@@ -19,9 +19,16 @@ var timerCount;
     initiateGame.appendChild(startButton);
     title.textContent = titleText;
     startButton.textContent = startText;
-
-    startButton.addEventListener("click", startGame);
+    startButton.addEventListener("click", function() {
+      initiateGame.removeChild(title);
+      initiateGame.removeChild(startButton);
+      startGame();
+    }
+    );
   }
+
+
+  
 
   
   // The startGame function is called when the start button is clicked
