@@ -28,47 +28,47 @@ var timerCount;
     });
   }
   
-  // // The startGame function is called when the start button is clicked
+  // The startGame function is called when the start button is clicked
   var startGame = function() {
-  //   //timerCount = 60;
+  //timerCount = 60;
     question1()
-  //   startTimer()
+    startTimer()
   }
   
-  // // // answer question correctly 
+  // determines what happens when a question is answered correctly
   var correctAnswer = function() {
     answerSection.textContent = "Correct! :)"
-  // //   correctCounter++
+  // correctCounter++
   }
 
-  // // // answer question incorrectly
+  // determines what happens when a question is answered incorrectly
   var wrongAnswer = function() {
     answerSection.textContent = "Incorrect! :("
-  // //   wrongCounter++
+  // wrongCounter++
   }
   
-  // // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
-  // function startTimer() {
-  //   // Sets timer
-  //    var timer = setInterval(function() {
-  //     timerCount--;
-  //     timerElement.textContent = timerCount;
-  //     if (timerCount >= 0) {
-  //       // Tests if win condition is met
-  //       if (isWin && timerCount > 0) {
-  //         // Clears interval and stops timer
-  //         clearInterval(timer);
-  //         winGame();
-  //       }
-  //     }
-  //     // Tests if time has run out
-  //     if (timerCount === 0) {
-  //       // Clears interval
-  //       clearInterval(timer);
-  //       loseGame();
-  //     }
-  //   }, 1000);
-  // }
+  // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+  var startTimer = function() {
+    // Sets timer
+     var timer = setInterval(function() {
+      timerCount--;
+      timerElement.textContent = timerCount;
+      if (timerCount >= 0) {
+        // Tests if win condition is met
+        if (isWin && timerCount > 0) {
+          // Clears interval and stops timer
+          clearInterval(timer);
+          winGame();
+        }
+      }
+      // Tests if time has run out
+      if (timerCount === 0) {
+        // Clears interval
+        clearInterval(timer);
+        loseGame();
+      }
+    }, 1000);
+  }
   
     // Runs the questions
     var question1 = function() {
