@@ -10,7 +10,7 @@ N/A
 
 ## Usage
 
-Navigate to website and click the start button. The timer will begin to count down from 20 seconds and the player will be asked 5 true/false questions. If the player fails to answer all of the questions in the allotted time, a message telling the player to refresh the page and try again will display. If the player successfully answers all the questions in the allotted time, they will be able to log their name and score to the scoreboard.
+Navigate to website and click the start button. The timer will begin to count down from 20 seconds and the player will be asked 5 true/false questions. The player will be notified whether the answer they chose was correct for each question. For each incorrect answer, the player will lose a second on the timer. If the player fails to answer all of the questions in the allotted time, a message will display telling the player to refresh the page and try again. If the player successfully answers all the questions in the allotted time, they will be able to log their name and score to the scoreboard.
 
 url: https://mahlheim.github.io/jubilant-doodle/
 
