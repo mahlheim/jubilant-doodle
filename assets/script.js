@@ -106,7 +106,7 @@ var isWin = false;
       end.appendChild(highScores);
 
       var name = nameInput.value;
-      highScores.textContent = "1. " + name + "- " + finalScore;
+      highScores.textContent = "1. " + name + " - " + finalScore + "/5!";
 
       var goBack = document.createElement("button");
       end.appendChild(goBack);
