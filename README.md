@@ -10,7 +10,15 @@ N/A
 
 ## Usage
 
+Navigate to website and click the start button. The timer will begin to count down from 20 seconds and the player will be asked 5 true/false questions. If the player fails to answer all of the questions in the alotted time, a message telling the player to refresh the page and try again will display. If the player successfully answers all the questions in the alotted time, they will be able to log their name and score to the scoreboard.
+
+url:
+
+
+
 ## Credits
+
+N/A
 
 ## License
 
