@@ -7,10 +7,11 @@ var initiateGame = document.querySelector("#initiate-game")
 var end = document.querySelector("#end")
 
 
-
+// global variables to be used in functions
 var correctCounter = 0;
+var wrongCounter = 0;
+var timerCount = 20;
 var isWin = false;
-var timerCount;
 
   // titles the page "Code Quiz" and creates the start button that triggers the quiz upon click
   var pageLoad = function() {
@@ -31,36 +32,64 @@ var timerCount;
   
   // The startGame function is called when the start button is clicked
   var startGame = function() {
-  //timerCount = 60;
-    question1()
-    // startTimer()
+    timerCount = 20;
+    question1();
+    startTimer();
   }
   
   // determines what happens when a question is answered correctly
   var correctAnswer = function() {
-    correctCounter++
+    correctCounter++;
     resultMessage.textContent = "Correct! :)";
   }
 
-  // determines what happens when a question is answered incorrectly
+  // determines what happens when a question is answered incorrectly, a wrong answer results in a loss of a second on the timer
   var wrongAnswer = function() {
+    wrongCounter++;
+    timerCount--;
     resultMessage.textContent = "Incorrect! :(";
   }
 
-  // sets correct count to client storage
+  // sets correct answer count to client storage
   var setCorrects = function() {
     localStorage.setItem("correctCount", correctCounter);
   }
 
+  var loseGame = function() {
+    resultMessage.textContent = "Too slow! Refresh the page and try again!";
+    questionSection.textContent = "";
+    answerSection.textContent = "";
+  }
+
+  // The setTimer function starts and stops the timer and triggers loseGame()
+  var startTimer = function() {
+      var timer = setInterval(function() {
+      timerCount--;
+      timerElement.textContent = "Time remaining: " + timerCount;
+        if (isWin === true) {
+          // Clears interval and stops timer
+          clearInterval(timer);
+          isWin = false;
+        }
+           // Tests if time has run out
+        if (timerCount === 0) {
+          clearInterval(timer);
+          loseGame();
+        } 
+      }, 1000);
+  }
+
+  // called at game's end and logs player's name to high scores table
   var done = function() {
+    isWin = true;
     resultMessage.textContent = "";
     var finishedMessage = "All done! Out of 5 possible points, you earned ";
     var finalScore = localStorage.getItem("correctCount");
     questionSection.textContent = finishedMessage + finalScore + "!";
     
-    var nameInput = document.createElement("textarea")
+    var nameInput = document.createElement("textarea");
     answerSection.appendChild(nameInput);
-    nameInput.placeholder = "Enter your name!"
+    nameInput.placeholder = "Enter your name!";
     var name = nameInput.value;
 
     var submitButton = document.createElement("button");
@@ -72,7 +101,7 @@ var timerCount;
       answerSection.removeChild(nameInput);
       answerSection.removeChild(submitButton);
 
-      questionSection.textContent = "High Scores!"
+      questionSection.textContent = "High Scores!";
       var highScores = document.createElement("table");
       end.appendChild(highScores);
 
@@ -85,10 +114,10 @@ var timerCount;
 
       var refresh = document.createElement("button");
       end.appendChild(refresh);
-      refresh.textContent = "Refresh High Scores"
+      refresh.textContent = "Refresh High Scores";
 
       goBack.addEventListener("click", function(event) {
-        questionSection.textContent = ""
+        questionSection.textContent = "";
         end.removeChild(highScores);
         end.removeChild(goBack);
         end.removeChild(refresh);
@@ -96,7 +125,7 @@ var timerCount;
       });
 
       refresh.addEventListener("click", function(event) {
-        questionSection.textContent = ""
+        questionSection.textContent = "";
         end.removeChild(highScores);
         end.removeChild(goBack);
         end.removeChild(refresh);
@@ -104,32 +133,8 @@ var timerCount;
       });
     });
   }
-
   
-  // // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
-  // var startTimer = function() {
-  //   // Sets timer
-  //    var timer = setInterval(function() {
-  //     timerCount--;
-  //     timerElement.textContent = timerCount;
-  //     if (timerCount >= 0) {
-  //       // Tests if win condition is met
-  //       if (isWin && timerCount > 0) {
-  //         // Clears interval and stops timer
-  //         clearInterval(timer);
-  //         winGame();
-  //       }
-  //     }
-  //     // Tests if time has run out
-  //     if (timerCount === 0) {
-  //       // Clears interval
-  //       clearInterval(timer);
-  //       loseGame();
-  //     }
-  //   }, 1000);
-  // }
-  
-    // Runs the questions
+    // runs the questions
     var question1 = function() {
       // creates true and false answer buttons
       var answerOne = "true"
@@ -301,6 +306,7 @@ var timerCount;
          if (buttonOne.click) {
            correctAnswer();
            setCorrects();
+           questionSection.textContent = "";
            answerSection.removeChild(buttonOne);
            answerSection.removeChild(buttonTwo);
            done();
@@ -310,6 +316,7 @@ var timerCount;
        buttonTwo.addEventListener("click", function() {
          if (buttonTwo.click) {
            wrongAnswer();
+           questionSection.textContent = "";
            answerSection.removeChild(buttonOne);
            answerSection.removeChild(buttonTwo);
            done();
